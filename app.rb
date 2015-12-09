@@ -50,5 +50,8 @@ post '/new' do
     return erb :new
   end
 
+# запись в таблицу введенного поста
+  @db.execute 'insert into Posts (content, created_date) values (?, datetime())', [content]
+
   erb "You typed #{content}"
 end
