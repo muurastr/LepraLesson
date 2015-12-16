@@ -78,6 +78,8 @@ get '/details/:post_id' do
   results = @db.execute 'select * from Posts where id = ?', [post_id]
   #выбираем этот один пост в переменную @row- строка с индексом 0
   @row = results[0]
+  #выбираем комментарии для этого поста
+  @comments = @db.execute 'select * from Comments where post_id = ? order by id', [post_id]
   #возвращаем представление details.erb
   erb :details
 end
@@ -105,5 +107,7 @@ post '/details/:post_id' do
     )', [content, post_id]
 #сколько ? столько и элементов в массиве
 
-  erb "You typed comment #{content} for post #{post_id}"
+  #перенаправление на станицу поста
+  redirect to ('/details/' + post_id)
+
 end
