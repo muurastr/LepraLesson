@@ -62,7 +62,11 @@ end
 #вывод информации о посте
 #универсвльный обработчик для всех страниц details/n
 get '/details/:post_id' do
+  #получаем переменную post_id из url 
   post_id = params[:post_id]
+  results = @db.execute 'select * from Posts where id = ?', [post_id]
+  #строка с индексом 0
+  @row = results[0]
 
-  erb "Displaying information for post with id #{post_id}"
+  erb :details
 end
