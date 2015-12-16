@@ -58,3 +58,11 @@ post '/new' do
 #перенаправление на главную станицу
   redirect to '/'
 end
+
+#вывод информации о посте
+#универсвльный обработчик для всех страниц details/n
+get '/details/:post_id' do
+  post_id = params[:post_id]
+
+  erb "Displaying information for post with id #{post_id}"
+end
