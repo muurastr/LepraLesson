@@ -90,5 +90,20 @@ post '/details/:post_id' do
   #получаем содержимое нашего комментария
   # = переменную из post-запроса 
   content = params[:content]
+  # запись в таблицу введенного поста
+  @db.execute 'insert into Comments 
+    (
+      content, 
+      created_date, 
+      post_id
+    ) 
+    values 
+    (
+      ?, 
+      datetime(),
+      ?
+    )', [content, post_id]
+#сколько ? столько и элементов в массиве
+
   erb "You typed comment #{content} for post #{post_id}"
 end
